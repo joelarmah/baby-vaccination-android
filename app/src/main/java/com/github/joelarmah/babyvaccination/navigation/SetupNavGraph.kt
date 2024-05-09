@@ -8,7 +8,8 @@ import com.github.joelarmah.babyvaccination.ui.screens.BabyDobScreen
 import com.github.joelarmah.babyvaccination.ui.screens.BabyGenderScreen
 import com.github.joelarmah.babyvaccination.ui.screens.BabyNameScreen
 import com.github.joelarmah.babyvaccination.ui.screens.BabyProfileViewModel
-import com.github.joelarmah.babyvaccination.ui.screens.HomeScreen
+import com.github.joelarmah.babyvaccination.ui.screens.CongratulationScreen
+import com.github.joelarmah.babyvaccination.ui.screens.home.HomeScreen
 import com.github.joelarmah.babyvaccination.ui.screens.SplashScreen
 
 @Composable
@@ -29,8 +30,11 @@ fun SetupNavGraph(navController: NavHostController, babyProfileViewModel: BabyPr
         composable(route = Screen.BabyGender.route) {
             BabyGenderScreen(navController = navController, babyProfileViewModel)
         }
+        composable(route = Screen.Congratulation.route) {
+            CongratulationScreen(navController = navController, babyProfileViewModel)
+        }
         composable(route = Screen.Home.route) {
-          HomeScreen()
+          HomeScreen(babyProfileViewModel)
         }
     }
 }

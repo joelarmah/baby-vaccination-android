@@ -10,7 +10,11 @@ data class BabyProfile(
     var name: String = "",
     var dob: String = "",
     var gender: String = ""
-)
+) {
+    fun getFirstName(): String {
+        return name.split(" ").firstOrNull() ?: ""
+    }
+}
 
 @HiltViewModel
 class BabyProfileViewModel @Inject constructor(

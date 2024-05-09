@@ -6,4 +6,6 @@ sealed class Screen(val route: String) {
     data object BabyDoB : Screen("baby_dob_screen")
     data object BabyGender : Screen("baby_gender_screen")
     data object Home : Screen("home_screen")
+    data object Congratulation : Screen("congratulation_screen")
+
 }

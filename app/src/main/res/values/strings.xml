@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Baby Vaccination</string>
+    <string name="next">Next</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="continue_text">Continue</string>
+    <string name="baby_dob_title">When was %1$s born?</string>
+    <string name="baby_dob_sub_title">We’ll use this to calculate your baby’s vaccination schedule</string>
 </resources>

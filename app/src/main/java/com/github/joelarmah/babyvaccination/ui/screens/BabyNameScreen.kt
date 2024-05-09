@@ -7,49 +7,48 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.github.joelarmah.babyvaccination.R
 import com.github.joelarmah.babyvaccination.navigation.Screen
+import com.github.joelarmah.babyvaccination.ui.components.BabyVaccineTopBar
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BabyNameScreen(navController: NavHostController, babyProfileViewModel: BabyProfileViewModel) {
 
-    var name by remember { mutableStateOf("") }
-
-    val updateName: (String) -> Unit = { newName ->
-        babyProfileViewModel.setName(newName)
-    }
+    val baby by babyProfileViewModel.baby.collectAsState()
+    var name by remember { mutableStateOf(baby.name) }
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text("What's the name of your baby?")
-                },
-                // Modifier.background(Color.Blue)
+            BabyVaccineTopBar(
+                title = "What's the name of your baby?",
+                subTitle = null
             )
         }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(horizontal = 16.dp)
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OutlinedTextField(
-                value = name,
-                onValueChange = { name = it },
+                value = baby.name,
+                onValueChange = { newName ->
+                    name = newName // Update the local name variable
+                    babyProfileViewModel.setName(newName)
+                },
                 label = { Text("") },
                 singleLine = true,
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = {
-                    if (name.isNotBlank()) {
-                        updateName(name)
-                    }
+                    navController.navigate(Screen.BabyDoB.route)
                 }),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -60,14 +59,14 @@ fun BabyNameScreen(navController: NavHostController, babyProfileViewModel: BabyP
 
             Button(
                 onClick = {
-                    if (babyProfileViewModel.baby.value.name.isNotBlank()) {
-                        updateName(name)
-                    }
                     navController.navigate(Screen.BabyDoB.route)
                 },
                 modifier = Modifier.fillMaxWidth(),
+                enabled = name.isNotBlank()
             ) {
-                Text("Continue")
+                Text(
+                    stringResource(R.string.next),
+                )
             }
         }
     }

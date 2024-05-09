@@ -1,21 +1,19 @@
 package com.github.joelarmah.babyvaccination.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.github.joelarmah.babyvaccination.navigation.Screen
+import com.github.joelarmah.babyvaccination.ui.components.BabyVaccineTopBar
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BabyGenderScreen(navController: NavHostController, babyProfileViewModel: BabyProfileViewModel) {
 
@@ -30,29 +28,16 @@ fun BabyGenderScreen(navController: NavHostController, babyProfileViewModel: Bab
 
     Scaffold(
         topBar = {
-            LargeTopAppBar(
-                title = {
-                    Column {
-                        Text(
-                            text = "What is ${baby.name}'s gender?",
-                            style = MaterialTheme.typography.headlineMedium,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                        Text(
-                            text = "",
-                            style = MaterialTheme.typography.titleSmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                    }
-                },
-
-                Modifier.background(Color.Blue)
+            BabyVaccineTopBar(
+                title = "What is ${baby.getFirstName()}'s gender?",
+                subTitle = null
             )
         }
     ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(horizontal = 16.dp)
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -89,12 +74,13 @@ fun BabyGenderScreen(navController: NavHostController, babyProfileViewModel: Bab
                         if (gender.isNotBlank()) {
                             updateGender(gender)
                         }
-                        navController.navigate(Screen.Home.route)
+                        navController.navigate(Screen.Congratulation.route)
                     }
                 },
                 modifier = Modifier.fillMaxWidth(),
+                enabled = !selectedGender.isNullOrBlank()
             ) {
-                Text("Create ${baby.name}'s Profile")
+                Text("Create ${baby.getFirstName()}'s Profile")
             }
         }
     }
