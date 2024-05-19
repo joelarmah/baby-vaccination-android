@@ -1,4 +1,4 @@
-package com.github.joelarmah.babyvaccination.data
+package com.github.joelarmah.babyvaccination.data.model
 
 import androidx.compose.ui.graphics.ImageBitmap
 

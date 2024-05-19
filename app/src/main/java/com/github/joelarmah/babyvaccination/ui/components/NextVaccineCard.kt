@@ -19,8 +19,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.joelarmah.babyvaccination.R
-import com.github.joelarmah.babyvaccination.data.Vaccine
-import com.github.joelarmah.babyvaccination.data.VaccineStats
+import com.github.joelarmah.babyvaccination.data.model.Vaccine
+import com.github.joelarmah.babyvaccination.data.model.VaccineStats
 
 @Composable
 fun NextVaccineCard(nextVaccine: Vaccine, vaccineStats: VaccineStats) {
