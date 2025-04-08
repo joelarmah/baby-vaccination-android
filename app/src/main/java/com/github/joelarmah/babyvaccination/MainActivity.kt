@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.github.joelarmah.babyvaccination.navigation.SetupNavGraph
-import com.github.joelarmah.babyvaccination.ui.screens.BabyProfileViewModel
+import com.github.joelarmah.babyvaccination.ui.screens.onboarding.BabyProfileViewModel
 import com.github.joelarmah.babyvaccination.ui.theme.BabyVaccinationTheme
 import dagger.hilt.android.AndroidEntryPoint
 

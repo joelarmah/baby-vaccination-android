@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.github.joelarmah.babyvaccination.ui.screens.BabyDobScreen
-import com.github.joelarmah.babyvaccination.ui.screens.BabyGenderScreen
-import com.github.joelarmah.babyvaccination.ui.screens.BabyNameScreen
-import com.github.joelarmah.babyvaccination.ui.screens.BabyProfileViewModel
-import com.github.joelarmah.babyvaccination.ui.screens.HomeScreen
+import com.github.joelarmah.babyvaccination.ui.screens.onboarding.BabyDobScreen
+import com.github.joelarmah.babyvaccination.ui.screens.onboarding.BabyGenderScreen
+import com.github.joelarmah.babyvaccination.ui.screens.onboarding.BabyNameScreen
+import com.github.joelarmah.babyvaccination.ui.screens.onboarding.BabyProfileViewModel
+import com.github.joelarmah.babyvaccination.ui.screens.home.HomeScreen
 import com.github.joelarmah.babyvaccination.ui.screens.SplashScreen
 
 @Composable

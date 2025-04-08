@@ -1,4 +1,4 @@
-package com.github.joelarmah.babyvaccination.ui.screens
+package com.github.joelarmah.babyvaccination.ui.screens.onboarding
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.github.joelarmah.babyvaccination.navigation.Screen
 import com.github.joelarmah.babyvaccination.ui.components.BabyVaccineTopBar
+import com.github.joelarmah.babyvaccination.ui.theme.Spacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -20,10 +21,6 @@ fun BabyDobScreen(navController: NavHostController, babyProfileViewModel: BabyPr
     val updateDoB: (String) -> Unit = { newDoB ->
         babyProfileViewModel.setDoB(newDoB)
     }
-
-    val datePickerState = rememberDatePickerState(
-        initialDisplayMode = DisplayMode.Input
-    )
 
     val baby by babyProfileViewModel.baby.collectAsState()
 
@@ -42,6 +39,9 @@ fun BabyDobScreen(navController: NavHostController, babyProfileViewModel: BabyPr
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            Spacer(modifier = Modifier.weight(1f))
+
+            val datePickerState = rememberDatePickerState()
             DatePicker(state = datePickerState)
 
             Spacer(modifier = Modifier.weight(1f))
@@ -53,7 +53,9 @@ fun BabyDobScreen(navController: NavHostController, babyProfileViewModel: BabyPr
                     }
                     navController.navigate(Screen.BabyGender.route)
                 },
-                modifier = Modifier.fillMaxWidth(),
+                Modifier.fillMaxWidth().padding(
+                    horizontal = Spacing.md
+                ),
             ) {
                 Text("Continue")
             }

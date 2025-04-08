@@ -1,4 +1,4 @@
-package com.github.joelarmah.babyvaccination.ui.screens
+package com.github.joelarmah.babyvaccination.ui.screens.onboarding
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -7,21 +7,38 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.github.joelarmah.babyvaccination.navigation.Screen
+import com.github.joelarmah.babyvaccination.ui.theme.Spacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BabyNameScreen(navController: NavHostController, babyProfileViewModel: BabyProfileViewModel) {
 
     var name by remember { mutableStateOf("") }
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     val updateName: (String) -> Unit = { newName ->
         babyProfileViewModel.setName(newName)
+    }
+
+    fun handleSubmitName(
+        name: String,
+        babyProfileViewModel: BabyProfileViewModel,
+        navController: NavHostController,
+        keyboardController: SoftwareKeyboardController?
+    ) {
+        if (name.isNotBlank()) {
+            babyProfileViewModel.setName(name)
+            keyboardController?.hide()
+            navController.navigate(Screen.BabyDoB.route)
+        }
     }
 
     Scaffold(
@@ -47,25 +64,20 @@ fun BabyNameScreen(navController: NavHostController, babyProfileViewModel: BabyP
                 singleLine = true,
                 keyboardOptions = KeyboardOptions.Default.copy(imeAction = ImeAction.Done),
                 keyboardActions = KeyboardActions(onDone = {
-                    if (name.isNotBlank()) {
-                        updateName(name)
-                    }
+                    handleSubmitName(name, babyProfileViewModel, navController, keyboardController)
                 }),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 8.dp)
+                    .padding(vertical = 8.dp, horizontal = Spacing.md)
             )
 
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
                 onClick = {
-                    if (babyProfileViewModel.baby.value.name.isNotBlank()) {
-                        updateName(name)
-                    }
-                    navController.navigate(Screen.BabyDoB.route)
+                    handleSubmitName(name, babyProfileViewModel, navController, keyboardController)
                 },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.md),
             ) {
                 Text("Continue")
             }
