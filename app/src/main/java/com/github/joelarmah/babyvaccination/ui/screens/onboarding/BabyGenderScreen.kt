@@ -1,4 +1,4 @@
-package com.github.joelarmah.babyvaccination.ui.screens
+package com.github.joelarmah.babyvaccination.ui.screens.onboarding
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.github.joelarmah.babyvaccination.navigation.Screen
+import com.github.joelarmah.babyvaccination.ui.theme.Spacing
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,6 +85,7 @@ fun BabyGenderScreen(navController: NavHostController, babyProfileViewModel: Bab
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
+                enabled = !selectedGender.isNullOrEmpty(),
                 onClick = {
                     selectedGender?.let { gender ->
                         if (gender.isNotBlank()) {
@@ -92,7 +94,7 @@ fun BabyGenderScreen(navController: NavHostController, babyProfileViewModel: Bab
                         navController.navigate(Screen.Home.route)
                     }
                 },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Spacing.md),
             ) {
                 Text("Create ${baby.name}'s Profile")
             }

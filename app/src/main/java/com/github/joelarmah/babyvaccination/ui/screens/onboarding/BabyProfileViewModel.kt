@@ -1,4 +1,4 @@
-package com.github.joelarmah.babyvaccination.ui.screens
+package com.github.joelarmah.babyvaccination.ui.screens.onboarding
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -1,4 +1,4 @@
-package com.github.joelarmah.babyvaccination.ui.screens
+package com.github.joelarmah.babyvaccination.ui.screens.onboarding
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -10,22 +10,26 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.github.joelarmah.babyvaccination.navigation.Screen
 import com.github.joelarmah.babyvaccination.ui.components.BabyVaccineTopBar
+import com.github.joelarmah.babyvaccination.ui.theme.Spacing
+import com.github.joelarmah.babyvaccination.util.formatDateFromMillis
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BabyDobScreen(navController: NavHostController, babyProfileViewModel: BabyProfileViewModel) {
 
-    val date by remember { mutableStateOf("") }
-
-    val updateDoB: (String) -> Unit = { newDoB ->
-        babyProfileViewModel.setDoB(newDoB)
-    }
-
-    val datePickerState = rememberDatePickerState(
-        initialDisplayMode = DisplayMode.Input
-    )
+    val datePickerState = rememberDatePickerState()
 
     val baby by babyProfileViewModel.baby.collectAsState()
+    var selectedDate by remember { mutableStateOf("") }
+
+    LaunchedEffect(datePickerState.selectedDateMillis) {
+        datePickerState.selectedDateMillis?.let { millis ->
+            selectedDate = formatDateFromMillis(millis)
+
+            // Immediately update the ViewModel
+            babyProfileViewModel.setDoB(selectedDate)
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -42,18 +46,24 @@ fun BabyDobScreen(navController: NavHostController, babyProfileViewModel: BabyPr
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            DatePicker(state = datePickerState)
+            Spacer(modifier = Modifier.weight(1f))
+
+            DatePicker(
+                title = { Text("") },
+                state = datePickerState,
+                showModeToggle = true
+            )
 
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
+                enabled = selectedDate.isNotEmpty(),
                 onClick = {
-                    if (date.isNotBlank()) {
-                        updateDoB(date)
-                    }
                     navController.navigate(Screen.BabyGender.route)
                 },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(
+                    horizontal = Spacing.md
+                ),
             ) {
                 Text("Continue")
             }
