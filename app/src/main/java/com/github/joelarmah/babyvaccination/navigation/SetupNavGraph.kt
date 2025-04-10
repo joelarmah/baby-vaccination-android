@@ -10,12 +10,13 @@ import com.github.joelarmah.babyvaccination.ui.screens.onboarding.BabyNameScreen
 import com.github.joelarmah.babyvaccination.ui.screens.onboarding.BabyProfileViewModel
 import com.github.joelarmah.babyvaccination.ui.screens.home.HomeScreen
 import com.github.joelarmah.babyvaccination.ui.screens.SplashScreen
+import com.github.joelarmah.babyvaccination.ui.screens.home.VaccinationScheduleViewModel
 
 @Composable
-fun SetupNavGraph(navController: NavHostController, babyProfileViewModel: BabyProfileViewModel) {
+fun SetupNavGraph(navController: NavHostController, babyProfileViewModel: BabyProfileViewModel, vaccinationScheduleViewModel: VaccinationScheduleViewModel) {
     NavHost(
         navController = navController,
-        startDestination = Screen.Splash.route
+        startDestination = Screen.BabyName.route
     ) {
         composable(route = Screen.Splash.route) {
             SplashScreen(navController = navController)
@@ -30,7 +31,7 @@ fun SetupNavGraph(navController: NavHostController, babyProfileViewModel: BabyPr
             BabyGenderScreen(navController = navController, babyProfileViewModel)
         }
         composable(route = Screen.Home.route) {
-          HomeScreen()
+          HomeScreen(babyProfileViewModel, vaccinationScheduleViewModel)
         }
     }
 }

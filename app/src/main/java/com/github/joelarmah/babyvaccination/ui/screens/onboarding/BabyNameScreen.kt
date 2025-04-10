@@ -74,6 +74,7 @@ fun BabyNameScreen(navController: NavHostController, babyProfileViewModel: BabyP
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
+                enabled = name.isNotBlank(),
                 onClick = {
                     handleSubmitName(name, babyProfileViewModel, navController, keyboardController)
                 },

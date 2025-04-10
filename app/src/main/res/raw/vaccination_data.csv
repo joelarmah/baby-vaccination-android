@@ -1,0 +1,38 @@
+age_in_weeks,age_user_friendly,vaccine,vitamin_a,deworming
+0,At Birth,"BCG
+OPV 0
+Hepatitis B",,
+6,6 weeks,"OPV 1
+DPT/ Hep B/ Hib 1
+Pneumococcal 1
+Rotavirus 1",,
+10,10 weeks,"OPV2
+DPT/ Hep B/ Hib 2
+Pneumococcal 2
+Rotavirus 2",,
+14,14 weeks,"OPV 3
+DPT/ Hep B / Hib 3
+Pneumococcal 3
+IPV",,
+24,6 months ,,VA1,
+36,9 months ,"Measles-Rubella 1
+Yellow Fever",,
+52,1 year,,VA2,
+72,"1 year 6 months
+(18 months)","Measles-Rubella 2
+Meningitis A
+LLIN",VA3,
+104,"2 years 
+(24 months)",,VA4,Deworm
+130,"2 years 6 months
+(30 months)",,VA5,Deworm
+156,"3 years
+(36 months)",,VA6,Deworm
+182,"3 years 6 months
+(42 months)",,VA7,Deworm
+208,"4 years
+(48 months)",,VA8,Deworm
+234,"4 years 6 months
+(54 months)",,VA9,Deworm
+260,"5 years
+(60 months)",,VA10,Deworm

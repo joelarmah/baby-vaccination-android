@@ -4,26 +4,32 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import com.github.joelarmah.babyvaccination.R
+import com.github.joelarmah.babyvaccination.data.local.database.converters.Converters
 import com.github.joelarmah.babyvaccination.data.local.database.dao.UserDao
-import com.github.joelarmah.babyvaccination.data.local.database.dao.VaccinationDao
+import com.github.joelarmah.babyvaccination.data.local.database.dao.VaccinationScheduleDao
 import com.github.joelarmah.babyvaccination.data.local.database.entity.UserEntity
-import com.github.joelarmah.babyvaccination.data.local.database.entity.VaccinationEntity
+import com.github.joelarmah.babyvaccination.data.local.database.entity.VaccinationScheduleEntity
 import java.util.Locale
 
 @Database(
     entities = [
         UserEntity::class,
-        VaccinationEntity::class
+        VaccinationScheduleEntity::class
     ],
     version = 1,
     exportSchema = false
 )
+
+@TypeConverters(
+    Converters::class
+)
 abstract class BabyVaccinationDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
-    abstract fun vaccinationDao(): VaccinationDao
-    // abstract fun vaccinationDao(): VaccinationDao
+    abstract fun vaccinationScheduleDao(): VaccinationScheduleDao
 
     companion object {
         @Volatile

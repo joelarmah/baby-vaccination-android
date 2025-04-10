@@ -24,9 +24,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.github.joelarmah.babyvaccination.data.local.database.entity.Vaccine
 
 @Composable
 fun VaccinesList(vaccines: List<Vaccine>) {
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -38,6 +40,11 @@ fun VaccinesList(vaccines: List<Vaccine>) {
         Spacer(modifier = Modifier.height(8.dp))
 
         vaccines.forEach { vaccine ->
+            val icon = if (vaccine.isInjection) {
+                Icons.Default.CheckCircle
+            } else {
+                Icons.Default.CheckCircle
+            }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -50,12 +57,12 @@ fun VaccinesList(vaccines: List<Vaccine>) {
                         .border(1.dp, Color.Gray, RoundedCornerShape(8.dp)),
                     contentAlignment = Alignment.Center
                 ) {
-                    Icon(vaccine.icon, contentDescription = null, tint = Color.Black)
+                    Icon(icon, contentDescription = null, tint = Color.Black)
                 }
                 Spacer(modifier = Modifier.width(16.dp))
                 Text(vaccine.name, modifier = Modifier.weight(1f), color = Color.Gray)
 
-                if (vaccine.taken) {
+                if (vaccine.dateTaken.isNotEmpty()) {
                     Icon(Icons.Default.CheckCircle, contentDescription = null, tint = Color(0xFF4CAF50))
                 } else {
                     Icon(Icons.Default.CheckCircle, contentDescription = null, tint = Color.LightGray)

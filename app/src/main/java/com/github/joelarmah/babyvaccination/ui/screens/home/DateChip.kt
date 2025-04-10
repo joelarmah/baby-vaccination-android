@@ -1,5 +1,6 @@
 package com.github.joelarmah.babyvaccination.ui.screens.home
 
+import android.text.format.DateUtils
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,9 +15,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.github.joelarmah.babyvaccination.util.reformatDate
 
 @Composable
-fun DateChips(dates: List<VaccineSchedule>) {
+fun DateChips(dates: List<VaccineDates>) {
     LazyRow(
         modifier = Modifier
             .padding(top = 12.dp, start = 8.dp)
@@ -32,7 +34,7 @@ fun DateChips(dates: List<VaccineSchedule>) {
                     )
                     .padding(8.dp)
             ) {
-                Text(text = item.date, color = Color.White, fontWeight = FontWeight.Medium)
+                Text(text = reformatDate(item.date), color = Color.White, fontWeight = FontWeight.Medium)
                 Text(text = item.label, color = Color.Gray, fontSize = 12.sp)
             }
         }

@@ -85,6 +85,7 @@ fun BabyGenderScreen(navController: NavHostController, babyProfileViewModel: Bab
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
+                enabled = !selectedGender.isNullOrEmpty(),
                 onClick = {
                     selectedGender?.let { gender ->
                         if (gender.isNotBlank()) {

@@ -11,18 +11,25 @@ import androidx.navigation.compose.rememberNavController
 import com.github.joelarmah.babyvaccination.navigation.Screen
 import com.github.joelarmah.babyvaccination.ui.components.BabyVaccineTopBar
 import com.github.joelarmah.babyvaccination.ui.theme.Spacing
+import com.github.joelarmah.babyvaccination.util.formatDateFromMillis
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BabyDobScreen(navController: NavHostController, babyProfileViewModel: BabyProfileViewModel) {
 
-    val date by remember { mutableStateOf("") }
-
-    val updateDoB: (String) -> Unit = { newDoB ->
-        babyProfileViewModel.setDoB(newDoB)
-    }
+    val datePickerState = rememberDatePickerState()
 
     val baby by babyProfileViewModel.baby.collectAsState()
+    var selectedDate by remember { mutableStateOf("") }
+
+    LaunchedEffect(datePickerState.selectedDateMillis) {
+        datePickerState.selectedDateMillis?.let { millis ->
+            selectedDate = formatDateFromMillis(millis)
+
+            // Immediately update the ViewModel
+            babyProfileViewModel.setDoB(selectedDate)
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -41,19 +48,20 @@ fun BabyDobScreen(navController: NavHostController, babyProfileViewModel: BabyPr
 
             Spacer(modifier = Modifier.weight(1f))
 
-            val datePickerState = rememberDatePickerState()
-            DatePicker(state = datePickerState)
+            DatePicker(
+                title = { Text("") },
+                state = datePickerState,
+                showModeToggle = true
+            )
 
             Spacer(modifier = Modifier.weight(1f))
 
             Button(
+                enabled = selectedDate.isNotEmpty(),
                 onClick = {
-                    if (date.isNotBlank()) {
-                        updateDoB(date)
-                    }
                     navController.navigate(Screen.BabyGender.route)
                 },
-                Modifier.fillMaxWidth().padding(
+                modifier = Modifier.fillMaxWidth().padding(
                     horizontal = Spacing.md
                 ),
             ) {

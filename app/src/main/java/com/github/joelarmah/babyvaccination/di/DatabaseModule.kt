@@ -23,6 +23,6 @@ object DatabaseModule {
     fun provideUserDao(database: BabyVaccinationDatabase) = database.userDao()
 
     @Provides
-    fun provideVaccinationDao(database: BabyVaccinationDatabase) = database.vaccinationDao()
+    fun provideVaccinationScheduleDao(database: BabyVaccinationDatabase) = database.vaccinationScheduleDao()
 
 }
